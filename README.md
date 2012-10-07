@@ -1,5 +1,5 @@
-Console Exec
-============
+ConsoleExec
+===========
 
 Plugin for Sublime Text 2 to execute a command in a console window.
 After the process exits, the console remains open and displays **"Press

@@ -9,7 +9,7 @@ This plugin is based on the exec command shipped with Sublime Text, and
 uses the launcher that ships with [Crimson Editor](http://crimsoneditor.com)
 to wait for a keypress before closing the window.
 
-Source [on Github](http://github.com/joeyespo/sublimetext-consoleexec)
+Source [on Github](http://github.com/joeyespo/sublimetext-console-exec)
 
 
 Usage

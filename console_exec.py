@@ -61,7 +61,7 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             if not quiet:
                 print 'Error: Could not find the ConsoleExec package.'
             return
-        cmd.insert(0, launcher)
+        cmd = [launcher] + map(lambda s: '"%s"' % s if ' ' in s else s, cmd)
 
         if kill:
             if self.proc:

@@ -15,9 +15,11 @@ Source [on Github](http://github.com/joeyespo/sublimetext-console-exec)
 Why?
 ----
 
-Aside from personal preference of having an external debug window in web,
-projects, certain runtime environments such as [Pyglet](http://www.pyglet.org/)
-will not run properly within the integrated console window.
+Aside from personal preference of an external debug window in web projects:
+
+- Sublime leaves your background process running when you quit
+- Rebuilding a project overwrites your running process, leaking processes if you're not careful
+- Certain environments such as [Pyglet](http://www.pyglet.org/) will not run within the integrated console window
 
 
 Usage

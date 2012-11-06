@@ -15,7 +15,7 @@ Source [on Github](http://github.com/joeyespo/sublimetext-console-exec)
 Why?
 ----
 
-Aside from personal preference of an external debug window in web projects:
+Aside from personal preference of having an external console in web projects,
 
 - Sublime leaves your background process running when you quit
 - Rebuilding a project overwrites your running process, leaking processes if you're not careful

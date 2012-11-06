@@ -21,6 +21,8 @@ Aside from personal preference of an external debug window in web projects:
 - Rebuilding a project overwrites your running process, leaking processes if you're not careful
 - Certain environments such as [Pyglet](http://www.pyglet.org/) will not run within the integrated console window
 
+This plugin ties these loose ends in a familiar way.
+
 
 Usage
 -----
@@ -57,3 +59,9 @@ Use [Sublime Package Control](http://wbond.net/sublime_packages/package_control)
 
 1. Select **Package Control: Install Package** from the command palette
 2. Look for **ConsoleExec** and press enter to install it
+
+
+Notes
+-----
+
+This plugin is Windows-only for the moment.

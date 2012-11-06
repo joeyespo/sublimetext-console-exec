@@ -12,6 +12,14 @@ to wait for a keypress before closing the window.
 Source [on Github](http://github.com/joeyespo/sublimetext-console-exec)
 
 
+Why?
+----
+
+Aside from personal preference of having an external debug window in web,
+projects, certain runtime environments such as [Pyglet](http://www.pyglet.org/)
+will not run properly within the integrated console window.
+
+
 Usage
 -----
 

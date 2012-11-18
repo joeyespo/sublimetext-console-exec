@@ -61,12 +61,8 @@ With [Sublime Package Control][package_control], simply
 
 #### Manual installation (advanced)
 
-Clone this repository into the Packages directory. To see where your Packages
-directory is installed:
-
-1. Run Sublime Text
-2. Press CTRL+` to open the console
-3. Enter `print sublime.packages_path()`
+Clone this repository into the Packages directory.
+To see where it's located enter `print sublime.packages_path()` in the console.
 
 
 Notes

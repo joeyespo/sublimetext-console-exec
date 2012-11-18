@@ -6,10 +6,16 @@ After the process exits, the console remains open and displays **"Press
 any key to exit"** before closing.
 
 This plugin is based on the exec command shipped with Sublime Text, and
-uses the launcher that ships with [Crimson Editor](http://crimsoneditor.com)
+uses the launcher that ships with [Crimson Editor][cedit]
 to wait for a keypress before closing the window.
 
-Source [on Github](http://github.com/joeyespo/sublimetext-console-exec)
+![Running a Flask application screenshot][screenshot]
+
+Source [available on Github][repo].
+
+[screenshot]: https://raw.github.com/joeyespo/sublimetext-console-exec/master/examples/flask_application_screenshot.png
+[cedit]: http://crimsoneditor.com
+[repo]: http://github.com/joeyespo/sublimetext-console-exec
 
 
 Why?
@@ -19,9 +25,11 @@ Aside from personal preference of having an external console in web projects,
 
 - Sublime leaves your background process running when you quit
 - Rebuilding a project overwrites your running process, leaking processes if you're not careful
-- Certain environments such as [Pyglet](http://www.pyglet.org/) will not run within the integrated console window
+- Certain environments such as [Pyglet][] will not run within the integrated console window
 
 This plugin ties these loose ends in a familiar way.
+
+[Pyglet]: http://www.pyglet.org
 
 
 Usage
@@ -55,10 +63,12 @@ directory is installed:
 
 #### Easy installation
 
-Use [Sublime Package Control](http://wbond.net/sublime_packages/package_control):
+Use [Sublime Package Control][package_control]:
 
 1. Select **Package Control: Install Package** from the command palette
 2. Look for **ConsoleExec** and press enter to install it
+
+[package_control]: http://wbond.net/sublime_packages/package_control
 
 
 Notes

@@ -48,6 +48,8 @@ For example, here's a modified **Python.sublime-build** file:
         "target": "console_exec"
     }
 
+Note: you can find the appropriate build file from **"Browse Packages..."**
+
 
 Installation
 ------------

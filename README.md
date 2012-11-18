@@ -52,6 +52,13 @@ For example, here's a modified **Python.sublime-build** file:
 Installation
 ------------
 
+With [Sublime Package Control][package_control], simply
+
+1. Select **Package Control: Install Package** from the command palette
+2. Locate **ConsoleExec** and press enter to install it
+
+[package_control]: http://wbond.net/sublime_packages/package_control
+
 #### Manual installation (advanced)
 
 Clone this repository into the Packages directory. To see where your Packages
@@ -60,15 +67,6 @@ directory is installed:
 1. Run Sublime Text
 2. Press CTRL+` to open the console
 3. Enter `print sublime.packages_path()`
-
-#### Easy installation
-
-Use [Sublime Package Control][package_control]:
-
-1. Select **Package Control: Install Package** from the command palette
-2. Look for **ConsoleExec** and press enter to install it
-
-[package_control]: http://wbond.net/sublime_packages/package_control
 
 
 Notes

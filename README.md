@@ -1,20 +1,21 @@
 Console Exec
 ============
 
-Plugin for Sublime Text 2 to execute a command in a console window.
-After the process exits, the console remains open and displays **"Press
-any key to exit"** before closing.
+Plugin for [Sublime Text 2][sublime] to execute a command in a console
+window. After the process exits, the console remains open and displays
+**"Press any key to exit"** before closing.
 
 This plugin is based on the exec command shipped with Sublime Text, and
-uses the launcher that ships with [Crimson Editor][cedit]
+uses the launcher that ships with [Crimson Editor][crimson]
 to wait for a keypress before closing the window.
 
-![Running a Flask application screenshot][screenshot]
+![Running a Flask application screenshot][example]
 
 Source [available on Github][repo].
 
-[screenshot]: https://raw.github.com/joeyespo/sublimetext-console-exec/master/examples/flask_application_screenshot.png
-[cedit]: http://crimsoneditor.com
+[sublime]: http://www.sublimetext.com
+[crimson]: http://crimsoneditor.com
+[example]: https://raw.github.com/joeyespo/sublimetext-console-exec/master/examples/flask_application_screenshot.png
 [repo]: http://github.com/joeyespo/sublimetext-console-exec
 
 

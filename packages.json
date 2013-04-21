@@ -3,14 +3,14 @@
 	"packages": [
 		{
 			"name": "ConsoleExec",
-			"description": "Plugin for Sublime Text 2 to execute a command in a console window.",
+			"description": "Plugin for Sublime Text to execute a command in a console window.",
 			"author": "Joe Esposito",
 			"homepage": "https://github.com/joeyespo/sublimetext-console-exec",
-			"last_modified": "2012-12-12 20:00:00",
+			"last_modified": "2013-04-21 16:00:00",
 			"platforms": {
 				"windows": [
 					{
-						"version": "1.0.0",
+						"version": "3.0.0",
 						"url": "https://nodeload.github.com/joeyespo/sublimetext-console-exec/zipball/master"
 					}
 				]

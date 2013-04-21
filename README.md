@@ -1,7 +1,7 @@
 Console Exec
 ============
 
-Plugin for [Sublime Text 2][sublime] to execute a command in a console
+Plugin for [Sublime Text][sublime] to execute a command in a console
 window. After the process exits, the console remains open and displays
 **"Press any key to exit"** before closing.
 
@@ -66,9 +66,3 @@ With [Sublime Package Control][package_control], simply
 
 Clone this repository into the Packages directory.
 To see where it's located enter `print sublime.packages_path()` in the console.
-
-
-Notes
------
-
-This plugin is Windows-only for the moment.

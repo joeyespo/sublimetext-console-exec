@@ -15,7 +15,8 @@ import sublime_plugin
 
 
 class ConsoleExecCommand(sublime_plugin.WindowCommand):
-    def run(self, cmd=[], env={}, path='', shell=False, win_console=None, unix_console=None, **kwargs):
+    def run(self, cmd=[], env={}, path='', shell=False, win_console=None,
+            unix_console=None, **kwargs):
         # Show message
         sublime.status_message('Running ' + ' '.join(cmd))
 
@@ -28,7 +29,8 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
         # Construct command line arguments
         cmd = console + cmd + ['&' , 'pause']
 
-        # Default the to the current file's directory if no working directory was given
+        # Default the to the current file's directory if no working directory
+        # was provided
         window = sublime.active_window()
         view = window.active_view() if window else None
         file_name = view.file_name() if view else None
@@ -54,7 +56,6 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             if path:
                 old_path = os.environ['PATH']
                 os.environ['PATH'] = os.path.expandvars(path)
-
             subprocess.Popen(cmd, env=proc_env, cwd=cwd, shell=shell)
         finally:
             if old_path:

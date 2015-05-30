@@ -8,7 +8,6 @@ into a console window. This is based on the default exec command.
 """
 
 import os
-import sys
 import subprocess
 import sublime
 import sublime_plugin
@@ -20,14 +19,16 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
         # Show message
         sublime.status_message('Running ' + ' '.join(cmd))
 
-        # Get console
-        if sys.platform == 'win32':
+        # Get platform-specific command arguments
+        if os.name == 'nt':
             console = win_console or ['cmd.exe', '/c']
+            pause = ['&', 'pause']
         else:
             console = unix_console or ['xterm', '-e']
+            pause = [';', 'read' '-p' '"Press [Enter] to continue..."']
 
         # Construct command line arguments
-        cmd = console + cmd + ['&' , 'pause']
+        cmd = console + cmd + pause
 
         # Default the to the current file's directory if no working directory
         # was provided

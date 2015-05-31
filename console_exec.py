@@ -25,7 +25,7 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             pause = ['&', 'pause']
         else:
             console = unix_console or ['xterm', '-e']
-            pause = [';', 'read' '-p' '"Press [Enter] to continue..."']
+            pause = [';', 'read', '-p', '"Press [Enter] to continue..."']
 
         # Construct command line arguments
         cmd = console + cmd + pause

@@ -28,7 +28,7 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
         else:
             console = unix_console or ['xterm', '-e']
             # escape cmd in case having paths with spaces
-            cmd = ['{0}'.format(self.escape_quotes(x, True)) for x in cmd]
+            cmd = [self.escape_quotes(x, True) for x in cmd]
             # the pause command under bash shell
             pause = 'read -p "Press [Enter] to continue..."'
             cmd_bash = 'bash -c {0}'.format(self.escape_quotes(pause, True))

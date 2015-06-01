@@ -11,6 +11,7 @@ import os
 import subprocess
 import sublime
 import sublime_plugin
+import json
 
 
 class ConsoleExecCommand(sublime_plugin.WindowCommand):
@@ -23,12 +24,16 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
         if os.name == 'nt':
             console = win_console or ['cmd.exe', '/c']
             pause = ['&', 'pause']
+            cmd = console + cmd + pause
         else:
             console = unix_console or ['xterm', '-e']
-            pause = [';', 'read', '-p', '"Press [Enter] to continue..."']
-
-        # Construct command line arguments
-        cmd = console + cmd + pause
+            # escape cmd in case having paths with spaces
+            cmd = ['{0}'.format(self.escape_quotes(x, True)) for x in cmd]
+            # the pause command under bash shell
+            pause = 'read -p "Press [Enter] to continue..."'
+            cmd_bash = 'bash -c {0}'.format(self.escape_quotes(pause, True))
+            cmd_console = ' '.join(cmd + [';', cmd_bash])
+            cmd = console + [cmd_console]
 
         # debug
         self.debug_print('reconstructed cmd is', cmd)
@@ -67,3 +72,16 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
 
     def debug_print (self, *arg):
         print('Console Exec:', *arg)
+
+    def escape_quotes(self, string, add_enclosed_quotes=False,
+                      handle_already_quoted=False):
+        # escape quoted string "AAA" into \\"AAA\\"?
+        if (handle_already_quoted is False) and        \
+           (  (string[1]=='"' and string[-1]=='"')  or \
+              (string[1]=="'" and string[-1]=="'")  ):
+            return string
+        escaped = json.dumps(string)
+        # output \\"AAA\\" or "\\"AAA\\""?
+        if add_enclosed_quotes is False:
+            escaped = escaped[1:-1]
+        return escaped

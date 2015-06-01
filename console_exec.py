@@ -27,8 +27,6 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             cmd = console + cmd + pause
         else:
             console = unix_console or ['xterm', '-e']
-            # escape cmd in case having paths with spaces
-            cmd = [self.escape_quotes(x, True) for x in cmd]
             # the pause command under bash shell
             pause = 'read -p "Press [Enter] to continue..."'
             cmd_bash = 'bash -c {0}'.format(self.escape_quotes(pause, True))
@@ -73,13 +71,7 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
     def debug_print (self, *arg):
         print('Console Exec:', *arg)
 
-    def escape_quotes(self, string, add_enclosed_quotes=False,
-                      handle_already_quoted=False):
-        # escape quoted string "AAA" into \\"AAA\\"?
-        if (handle_already_quoted is False) and        \
-           (  (string[1]=='"' and string[-1]=='"')  or \
-              (string[1]=="'" and string[-1]=="'")  ):
-            return string
+    def escape_quotes(self, string, add_enclosed_quotes=False):
         escaped = json.dumps(string)
         # output \\"AAA\\" or "\\"AAA\\""?
         if add_enclosed_quotes is False:

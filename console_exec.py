@@ -8,10 +8,10 @@ into a console window. This is based on the default exec command.
 """
 
 import os
+import sys
 import subprocess
 import sublime
 import sublime_plugin
-import json
 
 
 class ConsoleExecCommand(sublime_plugin.WindowCommand):
@@ -27,11 +27,14 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             cmd = console + cmd + pause
         else:
             console = unix_console or ['xterm', '-e']
-            # the pause command under bash shell
-            pause = 'read -p "Press [Enter] to continue..."'
-            cmd_bash = 'bash -c {0}'.format(self.escape_quotes(pause, True))
-            cmd_console = ' '.join(cmd + [';', cmd_bash])
-            cmd = console + [cmd_console]
+            # if a cmd list runs cmd_quote(), it's safe to do join()
+            cmd = [cmd_quote(x) for x in cmd]
+            pause = ['read', '-p', 'Press [Enter] to continue...']
+            pause = [cmd_quote(x) for x in pause]
+            cmd_bash = ['bash', '-c', ' '.join(pause)]
+            cmd_bash = [cmd_quote(x) for x in cmd_bash]
+            cmd_console = [' '.join(cmd), ';', ' '.join(cmd_bash)]
+            cmd = console + [' '.join(cmd_console)]
 
         # debug
         self.debug_print('reconstructed cmd is', cmd)
@@ -71,9 +74,10 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
     def debug_print (self, *arg):
         print('Console Exec:', *arg)
 
-    def escape_quotes(self, string, add_enclosed_quotes=False):
-        escaped = json.dumps(string)
-        # output \\"AAA\\" or "\\"AAA\\""?
-        if add_enclosed_quotes is False:
-            escaped = escaped[1:-1]
-        return escaped
+
+def cmd_quote (string):
+    if sys.version_info < (3, 3):
+        from pipes import quote
+    else:
+        from shlex import quote
+    return quote(string)

@@ -8,10 +8,10 @@ into a console window. This is based on the default exec command.
 """
 
 import os
-import sys
 import subprocess
 import sublime
 import sublime_plugin
+from pipes import quote
 
 
 class ConsoleExecCommand(sublime_plugin.WindowCommand):
@@ -27,12 +27,12 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             cmd = console + cmd + pause
         else:
             console = unix_console or ['xterm', '-e']
-            # if a cmd list runs cmd_quote(), it's safe to do join()
-            cmd = [cmd_quote(x) for x in cmd]
+            # if a cmd list runs quote(), it's safe to do join()
+            cmd = [quote(x) for x in cmd]
             pause = ['read', '-p', 'Press [Enter] to continue...']
-            pause = [cmd_quote(x) for x in pause]
+            pause = [quote(x) for x in pause]
             cmd_bash = ['bash', '-c', ' '.join(pause)]
-            cmd_bash = [cmd_quote(x) for x in cmd_bash]
+            cmd_bash = [quote(x) for x in cmd_bash]
             cmd_console = [' '.join(cmd), ';', ' '.join(cmd_bash)]
             cmd = console + [' '.join(cmd_console)]
 
@@ -73,11 +73,3 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
 
     def debug_print (self, *arg):
         print('Console Exec:', *arg)
-
-
-def cmd_quote (string):
-    if sys.version_info < (3, 3):
-        from pipes import quote
-    else:
-        from shlex import quote
-    return quote(string)

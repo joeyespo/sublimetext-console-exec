@@ -11,6 +11,7 @@ import os
 import subprocess
 import sublime
 import sublime_plugin
+from pipes import quote
 
 
 class ConsoleExecCommand(sublime_plugin.WindowCommand):
@@ -23,12 +24,16 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
         if os.name == 'nt':
             console = win_console or ['cmd.exe', '/c']
             pause = ['&', 'pause']
+            cmd = console + cmd + pause
         else:
             console = unix_console or ['xterm', '-e']
-            pause = [';', 'read', '-p', '"Press [Enter] to continue..."']
+            pause = [';', 'bash', '-c', '\'read -p "Press [Enter] to continue..."\'']
+            # if a cmd list runs quote(), it's safe to do join()
+            cmd = [quote(x) for x in cmd]
+            cmd = console + [' '.join(cmd + pause)]
 
-        # Construct command line arguments
-        cmd = console + cmd + pause
+        # debug
+        self.debug_print('reconstructed cmd is', cmd)
 
         # Default the to the current file's directory if no working directory
         # was provided
@@ -61,3 +66,6 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
         finally:
             if old_path:
                 os.environ['PATH'] = old_path
+
+    def debug_print (self, *arg):
+        print('Console Exec:', *arg)

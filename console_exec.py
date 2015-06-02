@@ -27,14 +27,10 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             cmd = console + cmd + pause
         else:
             console = unix_console or ['xterm', '-e']
+            pause = [';', 'bash', '-c', '\'read -p "Press [Enter] to continue..."\'']
             # if a cmd list runs quote(), it's safe to do join()
             cmd = [quote(x) for x in cmd]
-            pause = ['read', '-p', 'Press [Enter] to continue...']
-            pause = [quote(x) for x in pause]
-            cmd_bash = ['bash', '-c', ' '.join(pause)]
-            cmd_bash = [quote(x) for x in cmd_bash]
-            cmd_console = [' '.join(cmd), ';', ' '.join(cmd_bash)]
-            cmd = console + [' '.join(cmd_console)]
+            cmd = console + [' '.join(cmd + pause)]
 
         # debug
         self.debug_print('reconstructed cmd is', cmd)

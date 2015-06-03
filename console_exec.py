@@ -31,10 +31,9 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             cmd = console + cmd + pause
         else:
             console = unix_console or ['xterm', '-e']
-            pause = [';', 'bash', '-c', '\'read -p "Press [Enter] to continue..."\'']
-            # if a cmd list runs quote(), it's safe to do join()
-            cmd = [quote(x) for x in cmd]
-            cmd = console + [' '.join(cmd + pause)]
+            escaped_cmd = ' '.join(quote(x) for x in cmd)
+            pause = '; bash -c \'read -p "Press [Enter] to continue..."\''
+            cmd = console + ['{} {}'.format(escaped_cmd, pause)]
 
         # Default the to the current file's directory if no working directory
         # was provided

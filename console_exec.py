@@ -11,7 +11,11 @@ import os
 import subprocess
 import sublime
 import sublime_plugin
-from pipes import quote
+
+try:
+    from shlex import quote
+except ImportError:
+    from pipes import quote
 
 
 class ConsoleExecCommand(sublime_plugin.WindowCommand):

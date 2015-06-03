@@ -27,13 +27,13 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
         # Get platform-specific command arguments
         if os.name == 'nt':
             console = win_console or ['cmd.exe', '/c']
-            pause = ['&', 'pause']
-            cmd = console + cmd + pause
+            pause = ['pause']
+            console_cmd = console + cmd + ['&'] + pause
         else:
             console = unix_console or ['xterm', '-e']
             escaped_cmd = ' '.join(quote(x) for x in cmd)
-            pause = '; bash -c \'read -p "Press [Enter] to continue..."\''
-            cmd = console + ['{} {}'.format(escaped_cmd, pause)]
+            pause = 'bash -c \'read -p "Press [Enter] to continue..."\''
+            console_cmd = console + ['{} ; {}'.format(escaped_cmd, pause)]
 
         # Default the to the current file's directory if no working directory
         # was provided
@@ -62,7 +62,7 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             if path:
                 old_path = os.environ['PATH']
                 os.environ['PATH'] = os.path.expandvars(path)
-            subprocess.Popen(cmd, env=proc_env, cwd=cwd, shell=shell)
+            subprocess.Popen(console_cmd, env=proc_env, cwd=cwd, shell=shell)
         finally:
             if old_path:
                 os.environ['PATH'] = old_path

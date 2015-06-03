@@ -36,9 +36,6 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             cmd = [quote(x) for x in cmd]
             cmd = console + [' '.join(cmd + pause)]
 
-        # debug
-        self.debug_print('reconstructed cmd is', cmd)
-
         # Default the to the current file's directory if no working directory
         # was provided
         window = sublime.active_window()
@@ -70,6 +67,3 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
         finally:
             if old_path:
                 os.environ['PATH'] = old_path
-
-    def debug_print (self, *arg):
-        print('Console Exec:', *arg)

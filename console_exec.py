@@ -13,9 +13,12 @@ import sublime
 import sublime_plugin
 
 try:
-    from shlex import quote
+    from shlex import quote, join
 except ImportError:
     from pipes import quote
+
+    def join(iterable):
+        return ' '.join(iterable)
 
 
 class ConsoleExecCommand(sublime_plugin.WindowCommand):
@@ -24,7 +27,7 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
         unix_console=None, mac_console=None, **kwargs,
     ):
         # Show message
-        sublime.status_message('Running ' + ' '.join(cmd))
+        sublime.status_message(f'Running: {join(cmd)}')
 
         # Get platform-specific command arguments
         if sys.platform in ['win32', 'cygwin'] or os.name == 'nt':
@@ -49,9 +52,11 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
                     f'issue if this is not correct)'
                 ))
             console = unix_console or ['xterm', '-e']
-            escaped_cmd = ' '.join(quote(x) for x in cmd)
-            pause = 'bash -c \'read -p "Press [Enter] to continue..."\''
-            console_cmd = console + ['{} ; {}'.format(escaped_cmd, pause)]
+            escaped_cmd = join(cmd)
+            pause = 'read -n 1 -s -r -p "Press any key to continue . . ."'
+            command_string = f'{escaped_cmd} ; {pause}'
+            wrapped_cmd = f'/bin/bash -c {quote(command_string)}'
+            console_cmd = console + [wrapped_cmd]
 
         # Default to current file's directory if no working directory provided
         window = sublime.active_window()
@@ -71,6 +76,9 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
         proc_env.update(env)
         for key in proc_env:
             proc_env[key] = os.path.expandvars(proc_env[key])
+
+        # Show message
+        sublime.status_message(f'Running {join(console_cmd)}...')
 
         # Run in new console
         old_path = None

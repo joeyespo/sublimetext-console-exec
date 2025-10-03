@@ -9,14 +9,11 @@ This plugin is based on the exec command shipped with Sublime Text, and
 uses the launcher that ships with [Crimson Editor][crimson]
 to wait for a keypress before closing the window.
 
-![Running a Flask application screenshot][example]
-
 Source [available on Github][repo].
 
-[sublime]: http://www.sublimetext.com
-[crimson]: http://crimsoneditor.com
-[example]: https://raw.github.com/joeyespo/sublimetext-console-exec/master/examples/flask_application_screenshot.png
-[repo]: http://github.com/joeyespo/sublimetext-console-exec
+[sublime]: https://www.sublimetext.com
+[crimson]: https://crimsoneditor.com
+[repo]: https://github.com/joeyespo/sublimetext-console-exec
 
 
 Why?
@@ -30,7 +27,7 @@ Aside from personal preference of having an external console in web projects,
 
 This plugin ties these loose ends in a familiar way.
 
-[Pyglet]: http://www.pyglet.org
+[Pyglet]: https://www.pyglet.org
 
 
 Usage
@@ -60,9 +57,9 @@ With [Sublime Package Control][package_control], simply
 1. Select **Package Control: Install Package** from the command palette
 2. Locate **ConsoleExec** and press enter to install it
 
-[package_control]: http://wbond.net/sublime_packages/package_control
+[package_control]: https://wbond.net/sublime_packages/package_control
 
 #### Manual installation (advanced)
 
 Clone this repository into the Packages directory.
-To see where it's located enter `print sublime.packages_path()` in the console.
+To see where it's located enter `print(sublime.packages_path())` in the console.

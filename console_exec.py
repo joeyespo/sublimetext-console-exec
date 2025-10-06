@@ -24,7 +24,7 @@ except ImportError:
 class ConsoleExecCommand(sublime_plugin.WindowCommand):
     def run(
         self, cmd=[], env={}, path='', shell=False, win_console=None,
-        unix_console=None, mac_console=None, **kwargs,
+        unix_console=None, mac_console=None, verbose=False, **kwargs,
     ):
         # Show message
         sublime.status_message(f'Running: {join(cmd)}')
@@ -45,6 +45,7 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             )
             console_cmd = ['osascript', '-e', inline_script]
         else:
+            # Default to Linux, show message if not exact match
             if sys.platform not in ['linux', 'linux2']:
                 sublime.status_message((
                     f'Console Exec: Unsupported platform "{sys.platform}", '
@@ -57,6 +58,10 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
             command_string = f'{escaped_cmd} ; {pause}'
             wrapped_cmd = f'/bin/bash -c {quote(command_string)}'
             console_cmd = console + [wrapped_cmd]
+
+        # Show full run command
+        if verbose:
+            sublime.status_message(f'Running: {join(console_cmd)}...')
 
         # Default to current file's directory if no working directory provided
         window = sublime.active_window()
@@ -76,9 +81,6 @@ class ConsoleExecCommand(sublime_plugin.WindowCommand):
         proc_env.update(env)
         for key in proc_env:
             proc_env[key] = os.path.expandvars(proc_env[key])
-
-        # Show message
-        sublime.status_message(f'Running {join(console_cmd)}...')
 
         # Run in new console
         old_path = None
